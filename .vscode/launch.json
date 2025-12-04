@@ -1,0 +1,44 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CombineAllMarcos}",
+            "name": "Debug CombineAllMarcosClient",
+            "target": "CombineAllMarcosClient",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug CombineAllMarcosClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CombineAllMarcos}",
+            "name": "Release CombineAllMarcosClient",
+            "target": "CombineAllMarcosClient",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release CombineAllMarcosClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CombineAllMacro}",
+            "name": "Debug CombineAllMacroClient",
+            "target": "CombineAllMacroClient",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug CombineAllMacroClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:CombineAllMacro}",
+            "name": "Release CombineAllMacroClient",
+            "target": "CombineAllMacroClient",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release CombineAllMacroClient"
+        }
+    ]
+}
