@@ -7,7 +7,7 @@ public struct Color {
     let name: String
 }
 
-@CombineAll
+@CombineAll(type: "Color")
 public enum MyColors {
     static var red: Color { Color(name: "red") }
     static var blue: Color { Color(name: "blue") }
