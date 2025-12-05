@@ -56,3 +56,23 @@ public struct AwesomeContainer {
 for (propertyName, value) in AwesomeContainer.namedMyAwesomeClassValues {
     print("\(propertyName): \(value.id)")
 }
+
+// --- Nested Type Test (String.Size) ---
+
+extension Int {
+    public struct Size: Sendable {}
+}
+
+extension String {
+    public struct Size: Sendable { }
+
+    @CombineAll(type: "Int.Size")
+    public enum Test {
+        static let size: Int.Size = Int.Size()
+    }
+}
+
+print("\n--- Nested Type (String.Size) ---")
+for (propertyName, value) in String.Test.namedIntSizeValues {
+    print("\(propertyName): \(type(of: value))")
+}

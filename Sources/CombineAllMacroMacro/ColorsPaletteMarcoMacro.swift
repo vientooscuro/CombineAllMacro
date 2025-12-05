@@ -47,7 +47,10 @@ public struct CombineAllMacro: ExtensionMacro {
                 // Check type annotation
                 if let typeAnnotation = binding.typeAnnotation {
                     let typeName = typeAnnotation.type.description.trimmingCharacters(in: .whitespaces)
-                    if typeName == targetType {
+                    // Compare both the full qualified name and the short name
+                    // This handles cases like "Size" matching "String.Size"
+                    let shortTypeName = targetType.components(separatedBy: ".").last ?? targetType
+                    if typeName == targetType || typeName == shortTypeName {
                         if let identifierPattern = binding.pattern.as(IdentifierPatternSyntax.self) {
                             properties.append(identifierPattern.identifier.text)
                         }
@@ -56,8 +59,9 @@ public struct CombineAllMacro: ExtensionMacro {
             }
         }
         
-        // Calculate property name
-        let variableName = "named\(targetType)Values"
+        // Calculate property name - remove dots to create valid Swift identifier
+        let sanitizedTypeName = targetType.replacingOccurrences(of: ".", with: "")
+        let variableName = "named\(sanitizedTypeName)Values"
         
         // Generate the extension
         let propList = properties.map { "\"\($0)\": \($0)" }.joined(separator: ",\n    ")
