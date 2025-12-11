@@ -76,3 +76,43 @@ print("\n--- Nested Type (String.Size) ---")
 for (propertyName, value) in String.Test.namedIntSizeValues {
     print("\(propertyName): \(type(of: value))")
 }
+
+// --- Function Mode Test ---
+
+public enum SizeType {
+    case small
+    case medium
+    case large
+}
+
+@CombineAll(funcType: "MyAwesomeClass")
+public struct FunctionContainer {
+    static func first(size: SizeType) -> MyAwesomeClass {
+        MyAwesomeClass(id: 100 + size.hashValue)
+    }
+    
+    static func second(size: SizeType) -> MyAwesomeClass {
+        MyAwesomeClass(id: 200 + size.hashValue)
+    }
+    
+    static func third(size: SizeType) -> MyAwesomeClass {
+        MyAwesomeClass(id: 300 + size.hashValue)
+    }
+    
+    // This should be ignored - wrong return type
+    static func notAwesome(size: SizeType) -> Int {
+        return 42
+    }
+}
+
+print("\n--- Function Mode (MyAwesomeClass) ---")
+print("Available functions: \(FunctionContainer.namedMyAwesomeClassFunctions.keys.sorted())")
+
+// Calling functions from dictionary
+for (functionName, function) in FunctionContainer.namedMyAwesomeClassFunctions {
+    // Cast to the function type and call it
+    if let typedFunc = function as? @Sendable (SizeType) -> MyAwesomeClass {
+        let result = typedFunc(.medium)
+        print("\(functionName)(.medium) = \(result.id)")
+    }
+}
